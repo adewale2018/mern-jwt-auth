@@ -4,6 +4,7 @@ import { APP_ORIGIN, NODE_ENV, PORT } from "./constants/env";
 import express, { Request, Response } from "express";
 
 import { OK } from "./constants/http";
+import authRoutes from "./routes/auth.route";
 import { connectionToDB } from "./config/db";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -26,6 +27,7 @@ app.get("/", (req: Request, res: Response) => {
     status: "healthy!!!",
   });
 });
+app.use("/auth", authRoutes);
 app.use(errorHandler);
 app.listen(PORT, async () => {
   console.log(`SERVER RUNNING ON PORT:: ${PORT} in ${NODE_ENV} environment`);
