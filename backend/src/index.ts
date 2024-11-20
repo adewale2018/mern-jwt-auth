@@ -3,9 +3,11 @@ import "dotenv/config";
 import { APP_ORIGIN, NODE_ENV, PORT } from "./constants/env";
 import express, { Request, Response } from "express";
 
+import { OK } from "./constants/http";
 import { connectionToDB } from "./config/db";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import { errorHandler } from "./middleware/errorHandler";
 
 const app = express();
 app.use(express.json());
@@ -19,13 +21,13 @@ app.use(
 app.use(cookieParser());
 
 app.get("/", (req: Request, res: Response) => {
-  return res.status(200).json({
+  return res.status(OK).json({
     success: true,
-    message: "healthy!!!",
+    status: "healthy!!!",
   });
 });
-
-app.listen(4004, async () => {
+app.use(errorHandler);
+app.listen(PORT, async () => {
   console.log(`SERVER RUNNING ON PORT:: ${PORT} in ${NODE_ENV} environment`);
   await connectionToDB();
 });
