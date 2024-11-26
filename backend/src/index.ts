@@ -33,3 +33,4 @@ app.listen(PORT, async () => {
   console.log(`SERVER RUNNING ON PORT:: ${PORT} in ${NODE_ENV} environment`);
   await connectionToDB();
 });
+
